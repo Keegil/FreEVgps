@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="6" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/headertext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/menublue"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="@string/money_saved"
+                android:textColor="@color/white1"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/nok"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:gravity="left"
+            android:text="@string/nok_saved"
+            android:textSize="40sp" />
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/progressB"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/menublue"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="@string/saving_progress"
+                android:textColor="@color/white1"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/arrow_progress"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="15sp"
+                android:src="@drawable/arrowdown" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llSaveItem"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+
+
+            <ProgressBar
+                android:id="@+id/pgbAwardProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="10px"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/savingitem"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="0px"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text=""
+                android:textSize="20px"
+                android:textStyle="normal" >
+            </TextView>
+            
+            
+            <Button
+                android:id="@+id/selectb"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/menublue"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="@string/save_new"
+                android:textColor="@color/white1"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            
+            
+            
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/saving"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/menublue"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="@string/new_savings"
+                android:textColor="@color/white1"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/arrow_saving"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="15sp"
+                android:src="@drawable/arrowdown" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llRegInt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/rate"
+                android:textSize="20sp" >
+            </TextView>
+
+            <SeekBar
+                android:id="@+id/seekBar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:max="50" >
+            </SeekBar>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/time"
+                android:textSize="20sp" >
+            </TextView>
+
+            <SeekBar
+                android:id="@+id/seekBar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:max="24" >
+            </SeekBar>
+
+            <TextView
+                android:id="@+id/totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/total_price"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/saving2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@color/menublue"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="@string/new_savings2"
+                android:textColor="@color/white1"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/arrow_tolls"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="15sp"
+                android:contentDescription="@string/lol"
+                android:src="@drawable/arrowdown" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llRegToll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/rate2"
+                android:textSize="20sp" >
+            </TextView>
+
+            <SeekBar
+                android:id="@+id/seekBar3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:max="50" >
+            </SeekBar>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
