@@ -1,13 +1,23 @@
 package com.example.freespot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +30,13 @@ import android.widget.Toast;
 
 import com.example.freespot.AlertDialogRadio.AlertPositiveListener;
 import com.example.freespot.EditNameDialog.EditNameDialogListener;
+import com.example.freespot.database.Logging;
+import com.example.freespot.database.LoggingDataSource;
 import com.example.freespot.database.ProductDataSource;
 
 public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener, EditNameDialogListener, AlertPositiveListener {
+		ActionBar.TabListener, EditNameDialogListener, AlertPositiveListener,
+		LocationListener {
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "Navigation_item_selected";
 	public final static String EXTRA_MESSAGE = "com.example.test.MESSAGE";
@@ -37,8 +50,12 @@ public class MainActivity extends FragmentActivity implements
 	private String productname = "";
 
 	private ProductDataSource prosource;
+	private LoggingDataSource datasource;
 
 	private ProgressBar pb;
+
+	private double distanceTraveled = 0;
+	private Location lastLocation = null;
 
 	// Dialogradio - store position
 	int position = 0;
@@ -49,7 +66,16 @@ public class MainActivity extends FragmentActivity implements
 
 	ListView listView;
 
-	// Intent intent = new Intent(this, Excersice.class);
+	LocationManager locationManager;
+	Criteria criteria = new Criteria();
+	String provider;
+	double latitude;
+	double longitude;
+	double lastLatitude;
+	double lastLongitude;
+	float results[] = new float[3];
+
+	OverView fragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +97,24 @@ public class MainActivity extends FragmentActivity implements
 		prosource = new ProductDataSource(this);
 		prosource.open();
 
+		datasource = new LoggingDataSource(this);
+		datasource.open();
+
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	}
+
+	protected void onStop() {
+		super.onStop();
+		locationManager.removeUpdates((LocationListener) this);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		provider = locationManager.getBestProvider(criteria, true);
+		locationManager.requestLocationUpdates(provider, 1000, 1,
+				(LocationListener) this);
 	}
 
 	public static void setTabColor(TabHost tabhost) {
@@ -80,6 +124,7 @@ public class MainActivity extends FragmentActivity implements
 		}
 		tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab())
 				.setBackgroundColor(Color.parseColor("#FFFFFF")); // selected
+
 	}
 
 	public String getProductName() {
@@ -135,7 +180,6 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -145,7 +189,6 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -179,7 +222,6 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -262,6 +304,70 @@ public class MainActivity extends FragmentActivity implements
 		// finding progressbar
 		pb = (ProgressBar) findViewById(R.id.pgbAwardProgress);
 		pb.setMax(productPrice);
+
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		latitude = ((double) location.getLatitude());
+		longitude = ((double) location.getLongitude());
+
+		if (lastLocation != null) {
+			Location.distanceBetween(59.9191673, 10.7345046, latitude,
+					longitude, results);
+			distanceTraveled = results[0];
+		}
+		lastLocation = location;
+		lastLatitude = ((double) lastLocation.getLatitude());
+		lastLongitude = ((double) lastLocation.getLongitude());
+
+		// actual position of point: 59.9191673 , 10.7345046
+		// refpoint north: 59.9191739 , 10.7344148
+		// refpoint east: 59.9190369 , 10.7342566
+		// refpoint south: 59.9190036 , 10.7342687
+		// refpoint west: 59.9190197 , 10.7338176
+
+		if (((latitude < 59.9192) && (latitude > 59.9190))
+				&& ((longitude < 10.7346) && (longitude > 10.7344))) {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			String date = dateFormat.format(cal.getTime());
+			String fixedInfo = "Money saved: 10 NOK";
+			String parkTime = "Toll pass date: " + date + "\n" + fixedInfo;
+
+			Logging log = null;
+			log = datasource.createLog("Toll", date, 1, 10, 10);
+
+			String toastTime = "Toll pass registered!" + "\n" + parkTime;
+			Toast toast = Toast.makeText(this, toastTime, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.BOTTOM, 0, 10);
+			toast.show();
+
+			refreshOVerView();
+		} else {
+			Toast.makeText(
+					this,
+					latitude + ", " + longitude + ": You suck..."
+							+ " you have traveled " + distanceTraveled
+							+ " meters", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
 
 	}
 

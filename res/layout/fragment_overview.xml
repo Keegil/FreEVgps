@@ -6,7 +6,6 @@
     android:weightSum="6" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
@@ -79,8 +78,6 @@
             android:orientation="vertical"
             android:visibility="gone" >
 
-
-
             <ProgressBar
                 android:id="@+id/pgbAwardProgress"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -97,30 +94,26 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:layout_marginTop="0px"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="0px"
                 android:gravity="left"
                 android:text=""
                 android:textSize="20px"
                 android:textStyle="normal" >
             </TextView>
-            
-            
+
             <Button
                 android:id="@+id/selectb"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@color/menublue"
+                android:background="@color/red1"
                 android:gravity="left"
                 android:padding="15dp"
                 android:text="@string/save_new"
                 android:textColor="@color/white1"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-            
-            
-            
         </LinearLayout>
 
         <FrameLayout

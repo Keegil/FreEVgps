@@ -521,5 +521,10 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		editNameDialog.show(fm, "fragment_dialog");
 
 	}
+	
+	public void setTotalCosts(int i) {
+		totalCosts += i;
+		moneySaved.setText(totalCosts + " NOK");
+	}
 
 }
